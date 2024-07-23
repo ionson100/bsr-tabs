@@ -8,14 +8,15 @@
 
 /* Style the buttons that are used to open the tab content */
 .bsr-tab button {
-
+    border-radius: 0;
     border-top-left-radius: 10px 10px;
     border-top-right-radius: 10px 10px;
-    border-top: 2px solid #b1b3b3;
-    border-right: 2px solid #b1b3b3;
-    border-left: 2px solid #b1b3b3;
+    border-top: 1px solid #b1b3b3;
+    border-right: 1px solid #b1b3b3;
+    border-left: 1px solid #b1b3b3;
     border-bottom: 2px solid black;;
     background-color: #ffffff;
+
     float: left;
     outline: none;
     cursor: pointer;
