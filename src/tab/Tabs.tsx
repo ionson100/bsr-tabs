@@ -4,8 +4,6 @@ import {ItemTabProps, TabProps} from "./tabProps";
 import {getButtonContent, openItem} from "./utils";
 
 
-
-
 const PREFIX='bt-'
 
 export class Tabs extends Component<TabProps, any> {
@@ -59,7 +57,9 @@ export class Tabs extends Component<TabProps, any> {
             <>
 
                 <div className="bsr-tab">
+                    <div className={'bottom_band_left'}/>
                     {
+
                         this.list.map((item,index) => {
                             const prefix=this.props.buttonPrefix??PREFIX;
                             if(item.isOpen){
@@ -74,6 +74,7 @@ export class Tabs extends Component<TabProps, any> {
 
                         })
                     }
+                    <div className={'bottom_band_right'}/>
 
 
                 </div>
