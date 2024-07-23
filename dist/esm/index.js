@@ -2984,6 +2984,7 @@ var Tabs = /** @class */ (function (_super) {
                 id = v4();
             }
             _this.list.push({
+                width: d.props.width,
                 icon: d.props.icon,
                 title: d.props.title,
                 isOpen: d.props.isOpen,
@@ -3010,14 +3011,18 @@ var Tabs = /** @class */ (function (_super) {
                 React.createElement("div", { className: 'bottom_band_left' }),
                 this.list.map(function (item, index) {
                     var _a;
+                    var style = {
+                        display: "block",
+                        width: item.width
+                    };
                     var prefix = (_a = _this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX;
                     if (item.isOpen) {
-                        return React.createElement("button", { style: { display: "block" }, "data-button-prefix": prefix, key: index, className: "tablinks active", id: prefix + item.id, onClick: function () {
+                        return React.createElement("button", { style: style, "data-button-prefix": prefix, key: index, className: "tab-link active", id: prefix + item.id, onClick: function () {
                                 _this.innerOpenTab(item.id, prefix, item.eventKey);
                             } }, item.icon ? getButtonContent(item.icon, item.title) : item.title);
                     }
                     else {
-                        return React.createElement("button", { style: { display: "block" }, "data-button-prefix": prefix, key: index, className: "tablinks", id: prefix + item.id, onClick: function () {
+                        return React.createElement("button", { style: style, "data-button-prefix": prefix, key: index, className: "tab-link", id: prefix + item.id, onClick: function () {
                                 _this.innerOpenTab(item.id, prefix, item.eventKey);
                             } }, item.icon ? getButtonContent(item.icon, item.title) : item.title);
                     }

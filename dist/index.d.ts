@@ -13,6 +13,7 @@ type ItemTabProps = {
     children: React.ReactNode;
     id?: string;
     _prefix?: string;
+    width?: number;
 };
 
 declare class Tab extends Component<ItemTabProps, any> {
