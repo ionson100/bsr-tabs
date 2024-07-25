@@ -2980,9 +2980,8 @@ var Tabs = /** @class */ (function (_super) {
         return _this;
     }
     Tabs.prototype.SelectTabsById = function (id, callback) {
-        var _a, _b;
-        alert((_a = this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX + id + " ee");
-        var button = document.getElementById((_b = this.props.buttonPrefix) !== null && _b !== void 0 ? _b : PREFIX + id);
+        var _a;
+        var button = document.getElementById((_a = this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX + id);
         if (button) {
             button.click();
             if (callback) {
