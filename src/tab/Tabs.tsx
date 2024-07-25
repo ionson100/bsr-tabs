@@ -2,7 +2,7 @@ import React, {Children, Component} from "react";
 import {v4 as uuidv4} from 'uuid';
 import {ItemTabProps, TabProps} from "./tabProps";
 import {getButtonContent, openItem} from "./utils";
-import {findAllByRole} from "@testing-library/react";
+
 
 
 const PREFIX='bt-'
@@ -18,10 +18,8 @@ export class Tabs extends Component<TabProps, any> {
     }
 
     public SelectTabsById(id:string,callback?:()=>void){
-        alert(this.props.buttonPrefix+id)
-        alert(document.getElementById(this.props.buttonPrefix+id))
-        console.log(document.getElementById(this.props.buttonPrefix+id))
-       const button= document.getElementById(this.props.buttonPrefix+id) as HTMLButtonElement;
+        alert(this.props.buttonPrefix??PREFIX+id)
+       const button= document.getElementById(this.props.buttonPrefix??PREFIX+id) as HTMLButtonElement;
        if(button){
            button.click();
            if(callback){
