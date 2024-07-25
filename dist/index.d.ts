@@ -20,7 +20,7 @@ declare class Tab extends Component<ItemTabProps, any> {
     constructor({ props }: {
         props: Readonly<ItemTabProps>;
     });
-    SelectTab(): void;
+    SelectTab(callback?: () => void): void;
     SetShow(value: boolean): void;
     SetDisabled(value: boolean): void;
     render(): React.JSX.Element[] | null | undefined;

@@ -12,9 +12,9 @@ export class Tab extends Component<ItemTabProps, any> {
 
     }
 
-    public SelectTab() {
+    public SelectTab(callback?:()=>void) {
 
-        openItem(this.props.id!, this.props._prefix!)
+        openItem(this.props.id!, this.props._prefix!,callback)
     }
     public SetShow(value:boolean){
         setShow(this.props.id!, this.props._prefix!,value)

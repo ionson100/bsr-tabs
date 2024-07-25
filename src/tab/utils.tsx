@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 
 
-export function openItem(id: string,prefix:string) {
+export function openItem(id: string,prefix:string,callback?:()=>void) {
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -23,6 +23,7 @@ export function openItem(id: string,prefix:string) {
     doc!.className += " active"
     const docBt = document.getElementById(prefix+id);
     docBt!.className += " active"
+    if(callback) callback();
 
 
 }

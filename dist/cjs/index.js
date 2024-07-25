@@ -2838,7 +2838,7 @@ if (process.env.NODE_ENV === 'production') {
 var reactExports = react.exports;
 var React = /*@__PURE__*/getDefaultExportFromCjs(reactExports);
 
-function openItem(id, prefix) {
+function openItem(id, prefix, callback) {
     // Declare all variables
     var i, tabcontent, tablinks;
     // Get all elements with class="tabcontent" and hide them
@@ -2857,6 +2857,8 @@ function openItem(id, prefix) {
     doc.className += " active";
     var docBt = document.getElementById(prefix + id);
     docBt.className += " active";
+    if (callback)
+        callback();
 }
 function getButtonContent(icon, name) {
     return (React.createElement("div", { className: 'tab-button-image' },
@@ -2886,8 +2888,8 @@ var Tab = /** @class */ (function (_super) {
         var props = _a.props;
         return _super.call(this, props) || this;
     }
-    Tab.prototype.SelectTab = function () {
-        openItem(this.props.id, this.props._prefix);
+    Tab.prototype.SelectTab = function (callback) {
+        openItem(this.props.id, this.props._prefix, callback);
     };
     Tab.prototype.SetShow = function (value) {
         setShow(this.props.id, this.props._prefix, value);
