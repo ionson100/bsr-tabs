@@ -18,7 +18,7 @@ export class Tabs extends Component<TabProps, any> {
     }
 
     public SelectTabsById(id:string,callback?:()=>void){
-        alert(this.props.buttonPrefix??PREFIX+id)
+        alert(this.props.buttonPrefix??PREFIX+id+" ee")
        const button= document.getElementById(this.props.buttonPrefix??PREFIX+id) as HTMLButtonElement;
        if(button){
            button.click();
