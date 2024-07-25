@@ -12,7 +12,7 @@ export class Tab extends Component<ItemTabProps, any> {
 
     }
 
-    public OpenItem() {
+    public SelectTab() {
 
         openItem(this.props.id!, this.props._prefix!)
     }

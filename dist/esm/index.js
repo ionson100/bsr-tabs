@@ -2884,7 +2884,7 @@ var Tab = /** @class */ (function (_super) {
         var props = _a.props;
         return _super.call(this, props) || this;
     }
-    Tab.prototype.OpenItem = function () {
+    Tab.prototype.SelectTab = function () {
         openItem(this.props.id, this.props._prefix);
     };
     Tab.prototype.SetShow = function (value) {
@@ -2975,7 +2975,7 @@ var Tabs = /** @class */ (function (_super) {
         _this.list = [];
         return _this;
     }
-    Tabs.prototype.SelectById = function (id, callback) {
+    Tabs.prototype.SelectTabsById = function (id, callback) {
         var button = document.getElementById(this.props.buttonPrefix + id);
         if (button) {
             button.click();

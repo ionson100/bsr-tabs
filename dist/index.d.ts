@@ -20,7 +20,7 @@ declare class Tab extends Component<ItemTabProps, any> {
     constructor({ props }: {
         props: Readonly<ItemTabProps>;
     });
-    OpenItem(): void;
+    SelectTab(): void;
     SetShow(value: boolean): void;
     SetDisabled(value: boolean): void;
     render(): React.JSX.Element[] | null | undefined;
@@ -31,7 +31,7 @@ declare class Tabs extends Component<TabProps, any> {
     constructor({ props }: {
         props: Readonly<TabProps>;
     });
-    SelectById(id: string, callback?: () => void): void;
+    SelectTabsById(id: string, callback?: () => void): void;
     innerRender(): void;
     innerOpenTab(id: string, prefix: string, eventKey?: string): void;
     render(): React.JSX.Element;
