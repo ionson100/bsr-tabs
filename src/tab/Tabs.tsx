@@ -16,6 +16,16 @@ export class Tabs extends Component<TabProps, any> {
 
     }
 
+    public SelectById(id:string,callback?:()=>void){
+       const button= document.getElementById(this.props.buttonPrefix+id) as HTMLButtonElement;
+       if(button){
+           button.click();
+           if(callback){
+               callback()
+           }
+       }
+    }
+
     innerRender() {
 
         Children.map(this.props.children, (d) => {

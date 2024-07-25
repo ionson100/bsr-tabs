@@ -2975,6 +2975,15 @@ var Tabs = /** @class */ (function (_super) {
         _this.list = [];
         return _this;
     }
+    Tabs.prototype.SelectById = function (id, callback) {
+        var button = document.getElementById(this.props.buttonPrefix + id);
+        if (button) {
+            button.click();
+            if (callback) {
+                callback();
+            }
+        }
+    };
     Tabs.prototype.innerRender = function () {
         var _this = this;
         reactExports.Children.map(this.props.children, function (d) {
