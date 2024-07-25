@@ -2978,6 +2978,9 @@ var Tabs = /** @class */ (function (_super) {
         return _this;
     }
     Tabs.prototype.SelectTabsById = function (id, callback) {
+        alert(this.props.buttonPrefix + id);
+        alert(document.getElementById(this.props.buttonPrefix + id));
+        console.log(document.getElementById(this.props.buttonPrefix + id));
         var button = document.getElementById(this.props.buttonPrefix + id);
         if (button) {
             button.click();
