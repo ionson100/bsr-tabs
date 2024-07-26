@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/bsr-tab.iml" filepath="$PROJECT_DIR$/.idea/bsr-tab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/bsr-tabs.iml" filepath="$PROJECT_DIR$/.idea/bsr-tabs.iml" />
     </modules>
   </component>
 </project>

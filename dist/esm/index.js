@@ -3025,7 +3025,7 @@ var Tabs = /** @class */ (function (_super) {
                     var _a;
                     var style = {
                         display: "block",
-                        width: item.width
+                        minWidth: item.width
                     };
                     var prefix = (_a = _this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX;
                     if (item.isOpen) {

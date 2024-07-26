@@ -35,8 +35,6 @@ export class Tabs extends Component<TabProps, any> {
             if(!id){
                 id=uuidv4()
             }
-
-
             this.list.push({
                 width:(d as any).props.width,
                 icon: (d as any).props.icon,
@@ -75,12 +73,12 @@ export class Tabs extends Component<TabProps, any> {
                         this.list.map((item,index) => {
                             let style={
                                 display:"block",
-                                width:item.width
+                                minWidth:item.width
                             }
 
                             const prefix=this.props.buttonPrefix??PREFIX;
                             if(item.isOpen){
-                                return <button style={style} data-button-prefix={prefix} key={index} className="tab-link active" id={prefix+item.id} onClick={() => {
+                                return <button   style={style} data-button-prefix={prefix} key={index} className="tab-link active" id={prefix+item.id} onClick={() => {
                                     this.innerOpenTab(item.id!,prefix,item.eventKey)
                                 }}>{item.icon?getButtonContent(item.icon,item.title):item.title}</button>
                             }else{

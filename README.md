@@ -1,13 +1,13 @@
-# bsr-tab
+# bsr-tabs
 
 > ReactJS component tabs
 
-[![NPM](https://img.shields.io/npm/v/bsr-tab.svg)](https://www.npmjs.com/package/bsr-tab) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/bsr-tabs.svg)](https://www.npmjs.com/package/bsr-tabs) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save bsr-tab
+npm install --save bsr-tabs
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install --save bsr-tab
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'bsr-tab'
-import 'bsr-tab/dist/index.css'
+import MyComponent from 'bsr-tabs'
+import 'bsr-tabs/dist/index.css'
 
 class Example extends Component {
   render() {

@@ -20,15 +20,11 @@
     float: left;
     outline: none;
     cursor: pointer;
-    width: 200px;
-    /*min-width: 40px;*/
-    /*padding: 0 50px 0 50px;*/
+    padding: 0 15px 0 15px;
     height: 40px;
     color: black;
     transition: 0.3s;
     margin: 0;
-    /*margin: 2px 0px 0 0px;*/
-
 }
 
 /* Change background color of buttons on hover */

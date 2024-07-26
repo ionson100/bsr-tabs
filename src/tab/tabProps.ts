@@ -15,5 +15,4 @@ export type ItemTabProps = {
     id?:string
     _prefix?:string
     width?:number
-
 }
