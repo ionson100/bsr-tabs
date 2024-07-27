@@ -3031,7 +3031,7 @@ var Tabs = /** @class */ (function (_super) {
     Tabs.prototype.render = function () {
         var _this = this;
         this.innerRender();
-        return (React.createElement("div", { ref: this.mRefDiv },
+        return (React.createElement("div", { ref: this.mRefDiv, className: this.props.className },
             React.createElement("div", { className: "bsr-tab" },
                 React.createElement("div", { className: 'bottom_band_left' }),
                 this.list.map(function (item, index) {
