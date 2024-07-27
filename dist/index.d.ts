@@ -19,6 +19,7 @@ type TabProps = {
     onSelect?: (eventKey?: string, id?: string) => void;
     className?: string;
     style?: React.CSSProperties | undefined;
+    id?: string;
 };
 type ItemTabProps = {
     eventKey?: string;

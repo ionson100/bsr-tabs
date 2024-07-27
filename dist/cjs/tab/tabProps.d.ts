@@ -5,6 +5,7 @@ export type TabProps = {
     onSelect?: (eventKey?: string, id?: string) => void;
     className?: string;
     style?: React.CSSProperties | undefined;
+    id?: string;
 };
 export type ItemTabProps = {
     eventKey?: string;
