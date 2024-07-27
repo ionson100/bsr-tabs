@@ -72,7 +72,7 @@ export class Tabs extends Component<TabProps, any> {
         this.innerRender()
         return (
 
-            <div ref={this.mRefDiv} className={this.props.className}>
+            <div ref={this.mRefDiv} className={this.props.className} style={this.props.style}>
 
                 <div className="bsr-tab">
                     <div className={'bottom_band_left'}/>

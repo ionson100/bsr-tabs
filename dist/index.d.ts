@@ -18,6 +18,7 @@ type TabProps = {
     children: React.ReactNode;
     onSelect?: (eventKey?: string, id?: string) => void;
     className?: string;
+    style?: React.CSSProperties | undefined;
 };
 type ItemTabProps = {
     eventKey?: string;
