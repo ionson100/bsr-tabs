@@ -2988,6 +2988,9 @@ var Tabs = /** @class */ (function (_super) {
         _this.mRefDiv = React.createRef();
         return _this;
     }
+    Tabs.prototype.componentWillUnmount = function () {
+        alert(1);
+    };
     Tabs.prototype.SetShowTabById = function (id, value, callback) {
         setShow(id, PREFIX, value, callback);
     };
@@ -3005,24 +3008,26 @@ var Tabs = /** @class */ (function (_super) {
     };
     Tabs.prototype.innerRender = function () {
         var _this = this;
-        reactExports.Children.map(this.props.children, function (d) {
-            var id = d.props.id;
-            if (!id) {
-                id = v4();
-            }
-            _this.list.push({
-                width: d.props.width,
-                icon: d.props.icon,
-                title: d.props.title,
-                select: d.props.select,
-                id: id,
-                eventKey: d.props.eventKey,
-                children: React.cloneElement(d, {
+        if (reactExports.Children) {
+            reactExports.Children.map(this.props.children, function (d) {
+                var id = d.props.id;
+                if (!id) {
+                    id = v4();
+                }
+                _this.list.push({
+                    width: d.props.width,
+                    icon: d.props.icon,
+                    title: d.props.title,
+                    select: d.props.select,
                     id: id,
-                    _tabs: _this
-                })
+                    eventKey: d.props.eventKey,
+                    children: React.cloneElement(d, {
+                        id: id,
+                        _tabs: _this
+                    })
+                });
             });
-        });
+        }
     };
     Tabs.prototype.innerOpenTab = function (id, prefix, eventKey, callback) {
         openItem(this.mRefDiv.current, id, prefix, callback);

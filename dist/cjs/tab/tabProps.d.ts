@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Tabs } from "./Tabs";
 export type TabProps = {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onSelect?: (eventKey?: string, id?: string) => void;
     className?: string;
     style?: React.CSSProperties | undefined;
@@ -12,7 +12,7 @@ export type ItemTabProps = {
     title?: string | ReactElement;
     icon?: ReactElement;
     select?: boolean;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     id?: string;
     _tabs?: Tabs;
     width?: number;
