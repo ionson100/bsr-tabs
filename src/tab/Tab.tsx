@@ -16,7 +16,7 @@ export class Tab extends Component<ItemTabProps, any> {
         this.props._tabs?.innerOpenTab(this.props.id!,PREFIX,this.props.eventKey,callback)
     }
 
-    public SetShow(value:boolean,callback?:()=>void) {
+    public SetVisible(value:boolean,callback?:()=>void) {
         setShow(this.props.id!, PREFIX,value,callback)
     }
 

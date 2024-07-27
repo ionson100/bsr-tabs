@@ -15,12 +15,9 @@ export class Tabs extends Component<TabProps, any> {
         this.mRefDiv = React.createRef()
 
     }
-    componentWillUnmount() {
-        alert(1)
-    }
 
 
-    public SetShowTabById(id: string, value: boolean,callback?:()=>void) {
+    public SetVisibleTabById(id: string, value: boolean,callback?:()=>void) {
         setShow(id, PREFIX, value,callback)
     }
 
