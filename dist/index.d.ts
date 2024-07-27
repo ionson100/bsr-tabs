@@ -6,6 +6,7 @@ declare class Tabs extends Component<TabProps, any> {
     constructor({ props }: {
         props: Readonly<TabProps>;
     });
+    componentWillUnmount(): void;
     SetShowTabById(id: string, value: boolean, callback?: () => void): void;
     SetDisabledTabById(id: string, value: boolean, callback?: () => void): void;
     SelectTabById(id: string, callback?: () => void): void;
@@ -15,7 +16,7 @@ declare class Tabs extends Component<TabProps, any> {
 }
 
 type TabProps = {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onSelect?: (eventKey?: string, id?: string) => void;
     className?: string;
     style?: React.CSSProperties | undefined;
@@ -26,7 +27,7 @@ type ItemTabProps = {
     title?: string | ReactElement;
     icon?: ReactElement;
     select?: boolean;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     id?: string;
     _tabs?: Tabs;
     width?: number;
