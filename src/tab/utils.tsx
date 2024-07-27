@@ -1,59 +1,71 @@
 import React, {ReactElement} from "react";
 
+export const PREFIX = 'bt-'
 
-export function openItem(id: string,prefix:string,callback?:()=>void) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
+export function openItem(div: HTMLDivElement, id: string, prefix: string, callback?: () => void) {
 
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent =document.querySelectorAll('[data-content-prefix="'+prefix+'"]'); //document.getElementsByClassName("tabcontent");
+    let i;
+    const tabcontent = div.getElementsByClassName("bsr-tab-content");
     for (i = 0; i < tabcontent.length; i++) {
+
         (tabcontent[i] as HTMLDivElement).style.display = "none";
     }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.querySelectorAll('[data-button-prefix="'+prefix+'"]');//document.getElementsByClassName("tablinks");
+    const tablinks = div.getElementsByClassName("tab-link");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
+    for (i = 0; i < tabcontent.length; i++) {
+        if (tabcontent[i].id === id) {
+            (tabcontent[i] as HTMLElement).style.display = "block";
+            (tabcontent[i] as HTMLElement).className += " active"
+        }
+    }
+    for (i = 0; i < tablinks.length; i++) {
+        if (tablinks[i].id === (prefix + id)) {
+            (tablinks[i] as HTMLElement).className += " active"
+        }
+    }
 
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    const doc = document.getElementById(id);
-    doc!.style.display = "block";
-    doc!.className += " active"
-    const docBt = document.getElementById(prefix+id);
-    docBt!.className += " active"
-    if(callback) callback();
+    if (callback) callback();
 
 
 }
-export function getButtonContent(icon:any,name?: string|ReactElement) {
-    return(
+
+export function getButtonContent(icon: any, name?: string | ReactElement) {
+    return (
         <div className={'tab-button-image'}>
             <div className={'tab-button-image-left'}>{icon}</div>
             <div className={'tab-button-image-right'}>{name}</div>
         </div>
     )
 }
-export function setShow(id:string,prefix:string,value:boolean){
+
+export function setShow(id: string, prefix: string, value: boolean, callback?: () => void) {
     const doc = document.getElementById(id);
 
-    const docBt = document.getElementById(prefix+id);
+    const docBt = document.getElementById(prefix + id);
 
-    if(value){
+    if (value) {
 
         doc!.style.visibility = "visible";
-        docBt!.style.display="block"
-    }else{
+        docBt!.style.display = "block"
+    } else {
         doc!.style.visibility = "hidden";
-        docBt!.style.display="none"
+        docBt!.style.display = "none"
+    }
+    if (callback) {
+        callback()
     }
 
 }
 
-export function setDisabled(id:string,prefix:string,value:boolean){
+export function setDisabled(id: string, prefix: string, value: boolean, callback?: () => void) {
 
-    const docBt = document.getElementById(prefix+id);
+    const docBt = document.getElementById(prefix + id);
     (docBt as HTMLButtonElement).disabled = value
+    if (callback) {
+        callback()
+    }
+
 
 }

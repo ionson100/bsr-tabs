@@ -1,18 +1,31 @@
-import React, { ReactElement, Component } from 'react';
+import React, { Component, ReactElement } from 'react';
+
+declare class Tabs extends Component<TabProps, any> {
+    private list;
+    private readonly mRefDiv;
+    constructor({ props }: {
+        props: Readonly<TabProps>;
+    });
+    SetShowTabById(id: string, value: boolean, callback?: () => void): void;
+    SetDisabledTabById(id: string, value: boolean, callback?: () => void): void;
+    SelectTabById(id: string, callback?: () => void): void;
+    innerRender(): void;
+    innerOpenTab(id: string, prefix: string, eventKey?: string, callback?: () => void): void;
+    render(): React.JSX.Element;
+}
 
 type TabProps = {
     children: React.ReactNode;
-    buttonPrefix?: string;
     onSelect?: (eventKey?: string, id?: string) => void;
 };
 type ItemTabProps = {
     eventKey?: string;
     title?: string | ReactElement;
     icon?: ReactElement;
-    isOpen?: boolean;
+    select?: boolean;
     children: React.ReactNode;
     id?: string;
-    _prefix?: string;
+    _tabs?: Tabs;
     width?: number;
 };
 
@@ -21,20 +34,9 @@ declare class Tab extends Component<ItemTabProps, any> {
         props: Readonly<ItemTabProps>;
     });
     SelectTab(callback?: () => void): void;
-    SetShow(value: boolean): void;
-    SetDisabled(value: boolean): void;
+    SetShow(value: boolean, callback?: () => void): void;
+    SetDisabled(value: boolean, callback?: () => void): void;
     render(): React.JSX.Element[] | null | undefined;
-}
-
-declare class Tabs extends Component<TabProps, any> {
-    private list;
-    constructor({ props }: {
-        props: Readonly<TabProps>;
-    });
-    SelectTabsById(id: string, callback?: () => void): void;
-    innerRender(): void;
-    innerOpenTab(id: string, prefix: string, eventKey?: string): void;
-    render(): React.JSX.Element;
 }
 
 export { type ItemTabProps, Tab, type TabProps, Tabs };

@@ -5,7 +5,7 @@ export declare class Tab extends Component<ItemTabProps, any> {
         props: Readonly<ItemTabProps>;
     });
     SelectTab(callback?: () => void): void;
-    SetShow(value: boolean): void;
-    SetDisabled(value: boolean): void;
+    SetShow(value: boolean, callback?: () => void): void;
+    SetDisabled(value: boolean, callback?: () => void): void;
     render(): React.JSX.Element[] | null | undefined;
 }

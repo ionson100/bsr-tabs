@@ -1,107 +1,111 @@
 import React, {Children, Component} from "react";
 import {v4 as uuidv4} from 'uuid';
 import {ItemTabProps, TabProps} from "./tabProps";
-import {getButtonContent, openItem} from "./utils";
+import {getButtonContent, openItem, PREFIX, setDisabled, setShow} from "./utils";
 
-
-
-const PREFIX='bt-'
 
 export class Tabs extends Component<TabProps, any> {
 
 
     private list: Array<ItemTabProps> = [];
+    private readonly mRefDiv: React.RefObject<HTMLDivElement>;
 
     constructor({props}: { props: Readonly<TabProps> }) {
         super(props);
+        this.mRefDiv = React.createRef()
 
     }
 
-    public SelectTabsById(id:string,callback?:()=>void){
-       const button= document.getElementById(this.props.buttonPrefix??PREFIX+id) as HTMLButtonElement;
-       if(button){
-           button.click();
-           if(callback){
-               callback()
-           }
-       }
+
+    public SetShowTabById(id: string, value: boolean,callback?:()=>void) {
+        setShow(id, PREFIX, value,callback)
+    }
+
+    public SetDisabledTabById(id: string, value: boolean,callback?:()=>void) {
+        setDisabled(id, PREFIX, value,callback)
+    }
+
+    public SelectTabById(id: string, callback?: () => void) {
+        const button = document.getElementById(PREFIX + id) as HTMLButtonElement;
+        if (button) {
+            button.click();
+            if (callback) {
+                callback()
+            }
+        }
     }
 
     innerRender() {
 
         Children.map(this.props.children, (d) => {
 
-            let id=(d as any).props.id
-            if(!id){
-                id=uuidv4()
+            let id = (d as any).props.id
+            if (!id) {
+                id = uuidv4()
             }
             this.list.push({
-                width:(d as any).props.width,
+                width: (d as any).props.width,
                 icon: (d as any).props.icon,
                 title: (d as any).props.title,
-                isOpen: (d as any).props.isOpen,
+                select: (d as any).props.select,
                 id: id,
-                eventKey:(d as any).props.eventKey,
+                eventKey: (d as any).props.eventKey,
                 children: React.cloneElement(d as React.ReactElement<any>, {
-                    id:id,
-                    _prefix:this.props.buttonPrefix??PREFIX
+                    id: id,
+                    _tabs: this
                 })
             })
 
         })
 
     }
-    innerOpenTab(id:string,prefix:string,eventKey?:string){
-        openItem(id,prefix)
-        if(this.props.onSelect){
-            this.props.onSelect(eventKey,id)
+
+    innerOpenTab(id: string, prefix: string, eventKey?: string, callback?: () => void) {
+        openItem(this.mRefDiv.current!, id, prefix, callback)
+        if (this.props.onSelect) {
+            this.props.onSelect(eventKey, id)
         }
     }
-
 
 
     render() {
         this.innerRender()
         return (
 
-            <>
+            <div ref={this.mRefDiv}>
 
                 <div className="bsr-tab">
                     <div className={'bottom_band_left'}/>
                     {
 
-                        this.list.map((item,index) => {
-                            let style={
-                                display:"block",
-                                minWidth:item.width
+                        this.list.map((item, index) => {
+                            let style = {
+                                display: "block",
+                                minWidth: item.width
                             }
-
-                            const prefix=this.props.buttonPrefix??PREFIX;
-                            if(item.isOpen){
-                                return <button   style={style} data-button-prefix={prefix} key={index} className="tab-link active" id={prefix+item.id} onClick={() => {
-                                    this.innerOpenTab(item.id!,prefix,item.eventKey)
-                                }}>{item.icon?getButtonContent(item.icon,item.title):item.title}</button>
-                            }else{
-                                return <button  style={style}  data-button-prefix={prefix} key={index} className="tab-link" id={prefix+item.id} onClick={() => {
-                                    this.innerOpenTab(item.id!,prefix,item.eventKey)
-                                }}>{item.icon?getButtonContent(item.icon,item.title):item.title}</button>
+                            let eclass = 'tab-link'
+                            if (item.select) {
+                                eclass = 'tab-link active'
                             }
-
+                            return <button style={style} key={index} className={eclass} id={PREFIX + item.id}
+                                           onClick={() => {
+                                               this.innerOpenTab(item.id!, PREFIX, item.eventKey)
+                                           }}>{item.icon ? getButtonContent(item.icon, item.title) : item.title}</button>
                         })
                     }
                     <div className={'bottom_band_right'}/>
-
-
                 </div>
                 {
                     this.list.map(item => {
-                        const prefix=this.props.buttonPrefix??PREFIX;
-                        if (item.isOpen) {
-                            return <div data-content-prefix={prefix} key={item.id} id={item.id} className="bsr-tab-content active" style={{display:"block"}}>
+                        const prefix = PREFIX;
+                        if (item.select) {
+                            return <div data-content-prefix={prefix} key={item.id} id={item.id}
+                                        className="bsr-tab-content active" style={{display: "block"}}>
                                 {item.children}
                             </div>
                         } else {
-                            return <div data-content-prefix={prefix} key={item.id} id={item.id} className="bsr-tab-content">
+                            return <div data-content-prefix={prefix} key={item.id} id={item.id}
+                                        className="bsr-tab-content">
                                 {item.children}
                             </div>
                         }
@@ -117,7 +121,7 @@ export class Tabs extends Component<TabProps, any> {
                 {/*    )*/}
                 {/*}*/}
 
-            </>
+            </div>
 
         );
     }

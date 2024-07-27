@@ -1,7 +1,7 @@
 import React, {Children, Component} from "react";
 
 import {ItemTabProps} from "./tabProps";
-import {openItem, setDisabled, setShow} from "./utils";
+import {setDisabled, setShow,PREFIX} from "./utils";
 
 export class Tab extends Component<ItemTabProps, any> {
 
@@ -13,24 +13,24 @@ export class Tab extends Component<ItemTabProps, any> {
     }
 
     public SelectTab(callback?:()=>void) {
-
-        openItem(this.props.id!, this.props._prefix!,callback)
-    }
-    public SetShow(value:boolean){
-        setShow(this.props.id!, this.props._prefix!,value)
+        this.props._tabs?.innerOpenTab(this.props.id!,PREFIX,this.props.eventKey,callback)
     }
 
-    public SetDisabled(value:boolean){
-        setDisabled(this.props.id!, this.props._prefix!,value)
+    public SetShow(value:boolean,callback?:()=>void) {
+        setShow(this.props.id!, PREFIX,value,callback)
+    }
+
+    public SetDisabled(value:boolean,callback?:()=>void) {
+        setDisabled(this.props.id!, PREFIX,value,callback)
     }
 
 
     render() {
         return (
             Children.map(this.props.children, child =>
-                <div className="Row" data-prefix={this.props._prefix}>
+                <>
                     {child}
-                </div>
+                </>
             )
         );
     }

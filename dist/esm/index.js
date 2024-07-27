@@ -2836,25 +2836,28 @@ if (process.env.NODE_ENV === 'production') {
 var reactExports = react.exports;
 var React = /*@__PURE__*/getDefaultExportFromCjs(reactExports);
 
-function openItem(id, prefix, callback) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.querySelectorAll('[data-content-prefix="' + prefix + '"]'); //document.getElementsByClassName("tabcontent");
+var PREFIX = 'bt-';
+function openItem(div, id, prefix, callback) {
+    var i;
+    var tabcontent = div.getElementsByClassName("bsr-tab-content");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.querySelectorAll('[data-button-prefix="' + prefix + '"]'); //document.getElementsByClassName("tablinks");
+    var tablinks = div.getElementsByClassName("tab-link");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    var doc = document.getElementById(id);
-    doc.style.display = "block";
-    doc.className += " active";
-    var docBt = document.getElementById(prefix + id);
-    docBt.className += " active";
+    for (i = 0; i < tabcontent.length; i++) {
+        if (tabcontent[i].id === id) {
+            tabcontent[i].style.display = "block";
+            tabcontent[i].className += " active";
+        }
+    }
+    for (i = 0; i < tablinks.length; i++) {
+        if (tablinks[i].id === (prefix + id)) {
+            tablinks[i].className += " active";
+        }
+    }
     if (callback)
         callback();
 }
@@ -2863,7 +2866,7 @@ function getButtonContent(icon, name) {
         React.createElement("div", { className: 'tab-button-image-left' }, icon),
         React.createElement("div", { className: 'tab-button-image-right' }, name)));
 }
-function setShow(id, prefix, value) {
+function setShow(id, prefix, value, callback) {
     var doc = document.getElementById(id);
     var docBt = document.getElementById(prefix + id);
     if (value) {
@@ -2874,10 +2877,16 @@ function setShow(id, prefix, value) {
         doc.style.visibility = "hidden";
         docBt.style.display = "none";
     }
+    if (callback) {
+        callback();
+    }
 }
-function setDisabled(id, prefix, value) {
+function setDisabled(id, prefix, value, callback) {
     var docBt = document.getElementById(prefix + id);
     docBt.disabled = value;
+    if (callback) {
+        callback();
+    }
 }
 
 var Tab = /** @class */ (function (_super) {
@@ -2887,18 +2896,18 @@ var Tab = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     Tab.prototype.SelectTab = function (callback) {
-        openItem(this.props.id, this.props._prefix, callback);
+        var _a;
+        (_a = this.props._tabs) === null || _a === void 0 ? void 0 : _a.innerOpenTab(this.props.id, PREFIX, this.props.eventKey, callback);
     };
-    Tab.prototype.SetShow = function (value) {
-        setShow(this.props.id, this.props._prefix, value);
+    Tab.prototype.SetShow = function (value, callback) {
+        setShow(this.props.id, PREFIX, value, callback);
     };
-    Tab.prototype.SetDisabled = function (value) {
-        setDisabled(this.props.id, this.props._prefix, value);
+    Tab.prototype.SetDisabled = function (value, callback) {
+        setDisabled(this.props.id, PREFIX, value, callback);
     };
     Tab.prototype.render = function () {
-        var _this = this;
         return (reactExports.Children.map(this.props.children, function (child) {
-            return React.createElement("div", { className: "Row", "data-prefix": _this.props._prefix }, child);
+            return React.createElement(React.Fragment, null, child);
         }));
     };
     return Tab;
@@ -2968,18 +2977,23 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 
-var PREFIX = 'bt-';
 var Tabs = /** @class */ (function (_super) {
     __extends(Tabs, _super);
     function Tabs(_a) {
         var props = _a.props;
         var _this = _super.call(this, props) || this;
         _this.list = [];
+        _this.mRefDiv = React.createRef();
         return _this;
     }
-    Tabs.prototype.SelectTabsById = function (id, callback) {
-        var _a;
-        var button = document.getElementById((_a = this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX + id);
+    Tabs.prototype.SetShowTabById = function (id, value, callback) {
+        setShow(id, PREFIX, value, callback);
+    };
+    Tabs.prototype.SetDisabledTabById = function (id, value, callback) {
+        setDisabled(id, PREFIX, value, callback);
+    };
+    Tabs.prototype.SelectTabById = function (id, callback) {
+        var button = document.getElementById(PREFIX + id);
         if (button) {
             button.click();
             if (callback) {
@@ -2990,7 +3004,6 @@ var Tabs = /** @class */ (function (_super) {
     Tabs.prototype.innerRender = function () {
         var _this = this;
         reactExports.Children.map(this.props.children, function (d) {
-            var _a;
             var id = d.props.id;
             if (!id) {
                 id = v4();
@@ -2999,18 +3012,18 @@ var Tabs = /** @class */ (function (_super) {
                 width: d.props.width,
                 icon: d.props.icon,
                 title: d.props.title,
-                isOpen: d.props.isOpen,
+                select: d.props.select,
                 id: id,
                 eventKey: d.props.eventKey,
                 children: React.cloneElement(d, {
                     id: id,
-                    _prefix: (_a = _this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX
+                    _tabs: _this
                 })
             });
         });
     };
-    Tabs.prototype.innerOpenTab = function (id, prefix, eventKey) {
-        openItem(id, prefix);
+    Tabs.prototype.innerOpenTab = function (id, prefix, eventKey, callback) {
+        openItem(this.mRefDiv.current, id, prefix, callback);
         if (this.props.onSelect) {
             this.props.onSelect(eventKey, id);
         }
@@ -3018,32 +3031,26 @@ var Tabs = /** @class */ (function (_super) {
     Tabs.prototype.render = function () {
         var _this = this;
         this.innerRender();
-        return (React.createElement(React.Fragment, null,
+        return (React.createElement("div", { ref: this.mRefDiv },
             React.createElement("div", { className: "bsr-tab" },
                 React.createElement("div", { className: 'bottom_band_left' }),
                 this.list.map(function (item, index) {
-                    var _a;
                     var style = {
                         display: "block",
                         minWidth: item.width
                     };
-                    var prefix = (_a = _this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX;
-                    if (item.isOpen) {
-                        return React.createElement("button", { style: style, "data-button-prefix": prefix, key: index, className: "tab-link active", id: prefix + item.id, onClick: function () {
-                                _this.innerOpenTab(item.id, prefix, item.eventKey);
-                            } }, item.icon ? getButtonContent(item.icon, item.title) : item.title);
+                    var eclass = 'tab-link';
+                    if (item.select) {
+                        eclass = 'tab-link active';
                     }
-                    else {
-                        return React.createElement("button", { style: style, "data-button-prefix": prefix, key: index, className: "tab-link", id: prefix + item.id, onClick: function () {
-                                _this.innerOpenTab(item.id, prefix, item.eventKey);
-                            } }, item.icon ? getButtonContent(item.icon, item.title) : item.title);
-                    }
+                    return React.createElement("button", { style: style, key: index, className: eclass, id: PREFIX + item.id, onClick: function () {
+                            _this.innerOpenTab(item.id, PREFIX, item.eventKey);
+                        } }, item.icon ? getButtonContent(item.icon, item.title) : item.title);
                 }),
                 React.createElement("div", { className: 'bottom_band_right' })),
             this.list.map(function (item) {
-                var _a;
-                var prefix = (_a = _this.props.buttonPrefix) !== null && _a !== void 0 ? _a : PREFIX;
-                if (item.isOpen) {
+                var prefix = PREFIX;
+                if (item.select) {
                     return React.createElement("div", { "data-content-prefix": prefix, key: item.id, id: item.id, className: "bsr-tab-content active", style: { display: "block" } }, item.children);
                 }
                 else {
