@@ -6,7 +6,7 @@ export declare class Tabs extends Component<TabProps, any> {
     constructor({ props }: {
         props: Readonly<TabProps>;
     });
-    SetVisibleTabById(id: string, value: boolean, callback?: () => void): void;
+    SetVisibilitiesTabById(id: string, value: boolean, callback?: () => void): void;
     SetDisabledTabById(id: string, value: boolean, callback?: () => void): void;
     SelectTabById(id: string, callback?: () => void): void;
     innerRender(): void;

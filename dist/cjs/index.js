@@ -2901,7 +2901,7 @@ var Tab = /** @class */ (function (_super) {
         var _a;
         (_a = this.props._tabs) === null || _a === void 0 ? void 0 : _a.innerOpenTab(this.props.id, PREFIX, this.props.eventKey, callback);
     };
-    Tab.prototype.SetVisible = function (value, callback) {
+    Tab.prototype.SetVisibilities = function (value, callback) {
         setShow(this.props.id, PREFIX, value, callback);
     };
     Tab.prototype.SetDisabled = function (value, callback) {
@@ -2988,7 +2988,7 @@ var Tabs = /** @class */ (function (_super) {
         _this.mRefDiv = React.createRef();
         return _this;
     }
-    Tabs.prototype.SetVisibleTabById = function (id, value, callback) {
+    Tabs.prototype.SetVisibilitiesTabById = function (id, value, callback) {
         setShow(id, PREFIX, value, callback);
     };
     Tabs.prototype.SetDisabledTabById = function (id, value, callback) {

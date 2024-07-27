@@ -17,7 +17,7 @@ export class Tabs extends Component<TabProps, any> {
     }
 
 
-    public SetVisibleTabById(id: string, value: boolean,callback?:()=>void) {
+    public SetVisibilitiesTabById(id: string, value: boolean,callback?:()=>void) {
         setShow(id, PREFIX, value,callback)
     }
 
