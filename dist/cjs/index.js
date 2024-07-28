@@ -3010,6 +3010,7 @@ var Tabs = /** @class */ (function (_super) {
             reactExports.Children.map(this.props.children, function (d) {
                 var f = _this.listChildren.filter(function (sh) { return sh === d; });
                 if (f.length === 0) {
+                    _this.listChildren.push(d);
                     var id = d.props.id;
                     if (!id) {
                         id = v4();
