@@ -2982,9 +2982,9 @@ var Tabs = /** @class */ (function (_super) {
     function Tabs(_a) {
         var props = _a.props;
         var _this = _super.call(this, props) || this;
-        _this.list = [];
         _this.mRefDiv = React.createRef();
         _this.list = [];
+        _this._id = v4();
         return _this;
     }
     Tabs.prototype.SetVisibilitiesTabById = function (id, value, callback) {
@@ -3006,22 +3006,28 @@ var Tabs = /** @class */ (function (_super) {
         var _this = this;
         if (reactExports.Children) {
             reactExports.Children.map(this.props.children, function (d) {
-                var id = d.props.id;
-                if (!id) {
-                    id = v4();
-                }
-                _this.list.push({
-                    width: d.props.width,
-                    icon: d.props.icon,
-                    title: d.props.title,
-                    select: d.props.select,
-                    id: id,
-                    eventKey: d.props.eventKey,
-                    children: React.cloneElement(d, {
+                var marker = d.props._tabs;
+                if (!marker) {
+                    var id = d.props.id;
+                    if (!id) {
+                        id = v4();
+                    }
+                    _this.list.push({
+                        width: d.props.width,
+                        icon: d.props.icon,
+                        title: d.props.title,
+                        select: d.props.select,
                         id: id,
-                        _tabs: _this
-                    })
-                });
+                        eventKey: d.props.eventKey,
+                        children: React.cloneElement(d, {
+                            id: id,
+                            _tabs: _this,
+                        })
+                    });
+                }
+                else {
+                    d = null;
+                }
             });
         }
     };
