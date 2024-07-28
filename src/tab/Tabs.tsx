@@ -15,6 +15,13 @@ export class Tabs extends Component<TabProps, any> {
         this.mRefDiv = React.createRef()
 
     }
+    componentWillUnmount() {
+        if(Children){
+            Children.map(this.props.children, (d) => {
+               d=null;
+            })
+        }
+    }
 
 
     public SetVisibilitiesTabById(id: string, value: boolean,callback?:()=>void) {
