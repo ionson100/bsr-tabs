@@ -1,10 +1,9 @@
 import React, {ReactElement} from "react";
 import {Tabs} from "./Tabs";
-import {Tab} from "./Tab";
 
 
 export type TabProps = {
-    children?: React.ReactElement<Tab>;
+    children?: React.ReactNode;
     onSelect?:(eventKey?:string,id?:string)=>void
     className?:string
     style?: React.CSSProperties | undefined,

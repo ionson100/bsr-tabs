@@ -15,7 +15,7 @@ declare class Tabs extends Component<TabProps, any> {
 }
 
 type TabProps = {
-    children?: React.ReactElement<Tab>;
+    children?: React.ReactNode;
     onSelect?: (eventKey?: string, id?: string) => void;
     className?: string;
     style?: React.CSSProperties | undefined;
