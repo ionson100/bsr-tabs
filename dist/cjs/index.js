@@ -2985,6 +2985,7 @@ var Tabs = /** @class */ (function (_super) {
         var props = _a.props;
         var _this = _super.call(this, props) || this;
         _this.list = [];
+        _this.listChildren = [];
         _this.mRefDiv = React.createRef();
         return _this;
     }
@@ -3007,11 +3008,12 @@ var Tabs = /** @class */ (function (_super) {
         var _this = this;
         if (reactExports.Children) {
             reactExports.Children.map(this.props.children, function (d) {
-                var id = d.props.id;
-                if (!id) {
-                    id = v4();
-                }
-                if (_this.list.filter(function (a) { return a.id === id; }).length === 0) {
+                var f = _this.listChildren.filter(function (sh) { return sh === d; });
+                if (f.length === 0) {
+                    var id = d.props.id;
+                    if (!id) {
+                        id = v4();
+                    }
                     _this.list.push({
                         width: d.props.width,
                         icon: d.props.icon,

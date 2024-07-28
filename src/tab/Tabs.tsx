@@ -8,6 +8,7 @@ export class Tabs extends Component<TabProps, any> {
 
 
     private list: Array<ItemTabProps> = [];
+    private listChildren: Array<React.ReactNode> = [];
     private readonly mRefDiv: React.RefObject<HTMLDivElement>;
 
     constructor({props}: { props: Readonly<TabProps> }) {
@@ -17,13 +18,12 @@ export class Tabs extends Component<TabProps, any> {
     }
 
 
-
-    public SetVisibilitiesTabById(id: string, value: boolean,callback?:()=>void) {
-        setShow(id, PREFIX, value,callback)
+    public SetVisibilitiesTabById(id: string, value: boolean, callback?: () => void) {
+        setShow(id, PREFIX, value, callback)
     }
 
-    public SetDisabledTabById(id: string, value: boolean,callback?:()=>void) {
-        setDisabled(id, PREFIX, value,callback)
+    public SetDisabledTabById(id: string, value: boolean, callback?: () => void) {
+        setDisabled(id, PREFIX, value, callback)
     }
 
     public SelectTabById(id: string, callback?: () => void) {
@@ -38,14 +38,17 @@ export class Tabs extends Component<TabProps, any> {
 
     innerRender() {
 
-        if(Children){
+        if (Children) {
             Children.map(this.props.children, (d) => {
 
-                let id = (d as any).props.id
-                if (!id) {
-                    id = uuidv4()
-                }
-                if(this.list.filter(a=>a.id===id).length===0){
+                const f = this.listChildren.filter((sh) => sh === (d as React.ReactNode))
+                if (f.length === 0) {
+                    this.listChildren.push(d)
+                    let id = (d as any).props.id
+                    if (!id) {
+                        id = uuidv4()
+                    }
+
                     this.list.push({
                         width: (d as any).props.width,
                         icon: (d as any).props.icon,
@@ -58,7 +61,9 @@ export class Tabs extends Component<TabProps, any> {
                             _tabs: this
                         })
                     })
+
                 }
+
 
             })
         }
