@@ -8,6 +8,7 @@ export class Tabs extends Component<TabProps, any> {
 
 
     private list: Array<ItemTabProps>;
+    _id?:string;
 
 
     private readonly mRefDiv: React.RefObject<HTMLDivElement>;
@@ -16,6 +17,7 @@ export class Tabs extends Component<TabProps, any> {
         super(props);
         this.mRefDiv = React.createRef()
         this.list = [];
+        this._id=uuidv4()
     }
 
 
@@ -70,7 +72,7 @@ export class Tabs extends Component<TabProps, any> {
     }
 
     innerOpenTab(id: string, prefix: string, eventKey?: string, callback?: () => void) {
-        openItem(this.mRefDiv.current!, id, prefix, callback)
+        openItem(this._id!,this.mRefDiv.current!, id, prefix, callback)
         if (this.props.onSelect) {
             this.props.onSelect(eventKey, id)
         }
@@ -96,7 +98,7 @@ export class Tabs extends Component<TabProps, any> {
                             if (item.select) {
                                 eclass = 'tab-link active'
                             }
-                            return <button style={style} key={index} className={eclass} id={PREFIX + item.id}
+                            return <button data-parent-tabs={this._id} style={style} key={index} className={eclass} id={PREFIX + item.id}
                                            onClick={() => {
                                                this.innerOpenTab(item.id!, PREFIX, item.eventKey)
                                            }}>{item.icon ? getButtonContent(item.icon, item.title) : item.title}</button>
@@ -108,12 +110,12 @@ export class Tabs extends Component<TabProps, any> {
                     this.list!.map(item => {
 
                         if (item.select) {
-                            return <div  key={item.id} id={item.id}
+                            return <div data-parent-tabs={this._id} key={item.id} id={item.id}
                                         className="bsr-tab-content active" style={{display: "block"}}>
                                 {item.children}
                             </div>
                         } else {
-                            return <div  key={item.id} id={item.id}
+                            return <div data-parent-tabs={this._id}  key={item.id} id={item.id}
                                         className="bsr-tab-content">
                                 {item.children}
                             </div>

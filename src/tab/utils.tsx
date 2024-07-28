@@ -2,15 +2,26 @@ import React, {ReactElement} from "react";
 
 export const PREFIX = 'bt-'
 
-export function openItem(div: HTMLDivElement, id: string, prefix: string, callback?: () => void) {
+export function openItem(idParent:string,div: HTMLDivElement, id: string, prefix: string, callback?: () => void) {
 
     let i;
-    const tabcontent = div.getElementsByClassName("bsr-tab-content");
+    const contentElement = div.getElementsByClassName("bsr-tab-content");
+
+    const tabcontent = Array.prototype.filter.call(
+        contentElement,
+        (cueElement) => cueElement.getAttribute('data-parent-tabs') === idParent,
+    );
+
+
     for (i = 0; i < tabcontent.length; i++) {
 
         (tabcontent[i] as HTMLDivElement).style.display = "none";
     }
-    const tablinks = div.getElementsByClassName("tab-link");
+    const buttonElement = div.getElementsByClassName("tab-link");
+    const tablinks = Array.prototype.filter.call(
+        buttonElement,
+        (cueElement) => cueElement.getAttribute('data-parent-tabs') === idParent,
+    );
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }

@@ -2839,13 +2839,15 @@ var reactExports = react.exports;
 var React = /*@__PURE__*/getDefaultExportFromCjs(reactExports);
 
 var PREFIX = 'bt-';
-function openItem(div, id, prefix, callback) {
+function openItem(idParent, div, id, prefix, callback) {
     var i;
-    var tabcontent = div.getElementsByClassName("bsr-tab-content");
+    var contentElement = div.getElementsByClassName("bsr-tab-content");
+    var tabcontent = Array.prototype.filter.call(contentElement, function (cueElement) { return cueElement.getAttribute('data-parent-tabs') === idParent; });
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    var tablinks = div.getElementsByClassName("tab-link");
+    var buttonElement = div.getElementsByClassName("tab-link");
+    var tablinks = Array.prototype.filter.call(buttonElement, function (cueElement) { return cueElement.getAttribute('data-parent-tabs') === idParent; });
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
@@ -2986,6 +2988,7 @@ var Tabs = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.mRefDiv = React.createRef();
         _this.list = [];
+        _this._id = v4();
         return _this;
     }
     Tabs.prototype.SetVisibilitiesTabById = function (id, value, callback) {
@@ -3028,7 +3031,7 @@ var Tabs = /** @class */ (function (_super) {
         }
     };
     Tabs.prototype.innerOpenTab = function (id, prefix, eventKey, callback) {
-        openItem(this.mRefDiv.current, id, prefix, callback);
+        openItem(this._id, this.mRefDiv.current, id, prefix, callback);
         if (this.props.onSelect) {
             this.props.onSelect(eventKey, id);
         }
@@ -3048,17 +3051,17 @@ var Tabs = /** @class */ (function (_super) {
                     if (item.select) {
                         eclass = 'tab-link active';
                     }
-                    return React.createElement("button", { style: style, key: index, className: eclass, id: PREFIX + item.id, onClick: function () {
+                    return React.createElement("button", { "data-parent-tabs": _this._id, style: style, key: index, className: eclass, id: PREFIX + item.id, onClick: function () {
                             _this.innerOpenTab(item.id, PREFIX, item.eventKey);
                         } }, item.icon ? getButtonContent(item.icon, item.title) : item.title);
                 }),
                 React.createElement("div", { className: 'bottom_band_right' })),
             this.list.map(function (item) {
                 if (item.select) {
-                    return React.createElement("div", { key: item.id, id: item.id, className: "bsr-tab-content active", style: { display: "block" } }, item.children);
+                    return React.createElement("div", { "data-parent-tabs": _this._id, key: item.id, id: item.id, className: "bsr-tab-content active", style: { display: "block" } }, item.children);
                 }
                 else {
-                    return React.createElement("div", { key: item.id, id: item.id, className: "bsr-tab-content" }, item.children);
+                    return React.createElement("div", { "data-parent-tabs": _this._id, key: item.id, id: item.id, className: "bsr-tab-content" }, item.children);
                 }
             })));
     };
