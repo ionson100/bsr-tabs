@@ -1,8 +1,7 @@
 import React, { Component, ReactElement } from 'react';
 
 declare class Tabs extends Component<TabProps, any> {
-    private list?;
-    private _id?;
+    private list;
     private readonly mRefDiv;
     constructor({ props }: {
         props: Readonly<TabProps>;
@@ -16,7 +15,7 @@ declare class Tabs extends Component<TabProps, any> {
 }
 
 type TabProps = {
-    children?: React.ReactNode;
+    children?: React.ReactElement<Tab>;
     onSelect?: (eventKey?: string, id?: string) => void;
     className?: string;
     style?: React.CSSProperties | undefined;

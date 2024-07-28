@@ -2984,7 +2984,6 @@ var Tabs = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.mRefDiv = React.createRef();
         _this.list = [];
-        _this._id = v4();
         return _this;
     }
     Tabs.prototype.SetVisibilitiesTabById = function (id, value, callback) {
@@ -3005,31 +3004,24 @@ var Tabs = /** @class */ (function (_super) {
     Tabs.prototype.innerRender = function () {
         var _this = this;
         if (reactExports.Children) {
+            this.list = [];
             reactExports.Children.map(this.props.children, function (d) {
-                var marker = d.props._tabs;
-                console.log(marker);
-                console.log("_id:" + _this._id + ", marker:" + marker._id);
-                if (marker && marker._id !== _this._id) {
-                    var id = d.props.id;
-                    if (!id) {
-                        id = v4();
-                    }
-                    _this.list.push({
-                        width: d.props.width,
-                        icon: d.props.icon,
-                        title: d.props.title,
-                        select: d.props.select,
+                var id = d.props.id;
+                if (!id) {
+                    id = v4();
+                }
+                _this.list.push({
+                    width: d.props.width,
+                    icon: d.props.icon,
+                    title: d.props.title,
+                    select: d.props.select,
+                    id: id,
+                    eventKey: d.props.eventKey,
+                    children: React.cloneElement(d, {
                         id: id,
-                        eventKey: d.props.eventKey,
-                        children: React.cloneElement(d, {
-                            id: id,
-                            _tabs: _this,
-                        })
-                    });
-                }
-                else {
-                    d = null;
-                }
+                        _tabs: _this,
+                    })
+                });
             });
         }
     };
@@ -3060,13 +3052,11 @@ var Tabs = /** @class */ (function (_super) {
                 }),
                 React.createElement("div", { className: 'bottom_band_right' })),
             this.list.map(function (item) {
-                var prefix = PREFIX;
+                var eclass = 'bsr-tab-content';
                 if (item.select) {
-                    return React.createElement("div", { "data-content-prefix": prefix, key: item.id, id: item.id, className: "bsr-tab-content active", style: { display: "block" } }, item.children);
+                    eclass = 'bsr-tab-content active';
                 }
-                else {
-                    return React.createElement("div", { "data-content-prefix": prefix, key: item.id, id: item.id, className: "bsr-tab-content" }, item.children);
-                }
+                return React.createElement("div", { key: item.id, id: item.id, className: eclass, style: { display: "block" } }, item.children);
             })));
     };
     return Tabs;

@@ -7,8 +7,8 @@ import {getButtonContent, openItem, PREFIX, setDisabled, setShow} from "./utils"
 export class Tabs extends Component<TabProps, any> {
 
 
-    private list?: Array<ItemTabProps>;
-    private _id?:string;
+    private list: Array<ItemTabProps>;
+
 
     private readonly mRefDiv: React.RefObject<HTMLDivElement>;
 
@@ -16,8 +16,6 @@ export class Tabs extends Component<TabProps, any> {
         super(props);
         this.mRefDiv = React.createRef()
         this.list = [];
-        this._id = uuidv4();
-
     }
 
 
@@ -42,33 +40,27 @@ export class Tabs extends Component<TabProps, any> {
     innerRender() {
 
         if (Children) {
+            this.list=[];
             Children.map(this.props.children, (d) => {
 
-                const marker=(d as any).props._tabs
-                console.log(marker)
-                console.log("_id:"+this._id+", marker:"+marker._id)
-                if(marker&&marker._id!==this._id){
-                    let id = (d as any).props.id
-                    if (!id) {
-                        id = uuidv4()
-                    }
 
-                    this.list!.push({
-                        width: (d as any).props.width,
-                        icon: (d as any).props.icon,
-                        title: (d as any).props.title,
-                        select: (d as any).props.select,
-                        id: id,
-                        eventKey: (d as any).props.eventKey,
-                        children: React.cloneElement(d as React.ReactElement<any>, {
-                            id: id,
-                            _tabs: this,
-                        })
-                    })
-                }else {
-                    d=null;
+                let id = (d as any).props.id
+                if (!id) {
+                    id = uuidv4()
                 }
 
+                this.list!.push({
+                    width: (d as any).props.width,
+                    icon: (d as any).props.icon,
+                    title: (d as any).props.title,
+                    select: (d as any).props.select,
+                    id: id,
+                    eventKey: (d as any).props.eventKey,
+                    children: React.cloneElement(d as React.ReactElement<any>, {
+                        id: id,
+                        _tabs: this,
+                    })
+                })
 
 
             })
@@ -114,30 +106,17 @@ export class Tabs extends Component<TabProps, any> {
                 </div>
                 {
                     this.list!.map(item => {
-                        const prefix = PREFIX;
-                        if (item.select) {
-                            return <div data-content-prefix={prefix} key={item.id} id={item.id}
-                                        className="bsr-tab-content active" style={{display: "block"}}>
-                                {item.children}
-                            </div>
-                        } else {
-                            return <div data-content-prefix={prefix} key={item.id} id={item.id}
-                                        className="bsr-tab-content">
-                                {item.children}
-                            </div>
+
+                        let eclass = 'bsr-tab-content'
+                        if(item.select){
+                            eclass='bsr-tab-content active'
                         }
+                        return <div  key={item.id} id={item.id}
+                                     className={eclass} style={{display: "block"}}>
+                            {item.children}
+                        </div>
                     })
                 }
-
-
-                {/*{*/}
-                {/*    Children.map(this.props.children, child =>*/}
-                {/*        <div className="Row">*/}
-                {/*            {child}*/}
-                {/*        </div>*/}
-                {/*    )*/}
-                {/*}*/}
-
             </div>
 
         );
