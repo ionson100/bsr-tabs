@@ -2986,6 +2986,12 @@ var Tabs = /** @class */ (function (_super) {
         _this.mRefDiv = React.createRef();
         return _this;
     }
+    Tabs.prototype.componentWillUnmount = function () {
+        if (reactExports.Children) {
+            reactExports.Children.map(this.props.children, function (d) {
+            });
+        }
+    };
     Tabs.prototype.SetVisibilitiesTabById = function (id, value, callback) {
         setShow(id, PREFIX, value, callback);
     };
