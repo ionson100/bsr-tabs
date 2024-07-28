@@ -15,13 +15,7 @@ export class Tabs extends Component<TabProps, any> {
         this.mRefDiv = React.createRef()
 
     }
-    componentWillUnmount() {
-        if(Children){
-            Children.map(this.props.children, (d) => {
-               d=null;
-            })
-        }
-    }
+
 
 
     public SetVisibilitiesTabById(id: string, value: boolean,callback?:()=>void) {
@@ -51,18 +45,21 @@ export class Tabs extends Component<TabProps, any> {
                 if (!id) {
                     id = uuidv4()
                 }
-                this.list.push({
-                    width: (d as any).props.width,
-                    icon: (d as any).props.icon,
-                    title: (d as any).props.title,
-                    select: (d as any).props.select,
-                    id: id,
-                    eventKey: (d as any).props.eventKey,
-                    children: React.cloneElement(d as React.ReactElement<any>, {
+                if(this.list.filter(a=>a.id===id).length===0){
+                    this.list.push({
+                        width: (d as any).props.width,
+                        icon: (d as any).props.icon,
+                        title: (d as any).props.title,
+                        select: (d as any).props.select,
                         id: id,
-                        _tabs: this
+                        eventKey: (d as any).props.eventKey,
+                        children: React.cloneElement(d as React.ReactElement<any>, {
+                            id: id,
+                            _tabs: this
+                        })
                     })
-                })
+                }
+
             })
         }
 
