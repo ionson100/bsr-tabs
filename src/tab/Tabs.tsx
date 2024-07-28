@@ -107,14 +107,17 @@ export class Tabs extends Component<TabProps, any> {
                 {
                     this.list!.map(item => {
 
-                        let eclass = 'bsr-tab-content'
-                        if(item.select){
-                            eclass='bsr-tab-content active'
+                        if (item.select) {
+                            return <div  key={item.id} id={item.id}
+                                        className="bsr-tab-content active" style={{display: "block"}}>
+                                {item.children}
+                            </div>
+                        } else {
+                            return <div  key={item.id} id={item.id}
+                                        className="bsr-tab-content">
+                                {item.children}
+                            </div>
                         }
-                        return <div  key={item.id} id={item.id}
-                                     className={eclass} style={{display: "block"}}>
-                            {item.children}
-                        </div>
                     })
                 }
             </div>

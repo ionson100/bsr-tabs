@@ -3054,11 +3054,12 @@ var Tabs = /** @class */ (function (_super) {
                 }),
                 React.createElement("div", { className: 'bottom_band_right' })),
             this.list.map(function (item) {
-                var eclass = 'bsr-tab-content';
                 if (item.select) {
-                    eclass = 'bsr-tab-content active';
+                    return React.createElement("div", { key: item.id, id: item.id, className: "bsr-tab-content active", style: { display: "block" } }, item.children);
                 }
-                return React.createElement("div", { key: item.id, id: item.id, className: eclass, style: { display: "block" } }, item.children);
+                else {
+                    return React.createElement("div", { key: item.id, id: item.id, className: "bsr-tab-content" }, item.children);
+                }
             })));
     };
     return Tabs;
