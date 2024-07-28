@@ -8,23 +8,23 @@ export class Tabs extends Component<TabProps, any> {
 
 
     private list: Array<ItemTabProps> = [];
-    private listChildren: Array<React.ReactNode> = [];
+
     private readonly mRefDiv: React.RefObject<HTMLDivElement>;
 
     constructor({props}: { props: Readonly<TabProps> }) {
         super(props);
         this.mRefDiv = React.createRef()
+        this.list = [];
 
     }
 
 
-
-    public SetVisibilitiesTabById(id: string, value: boolean,callback?:()=>void) {
-        setShow(id, PREFIX, value,callback)
+    public SetVisibilitiesTabById(id: string, value: boolean, callback?: () => void) {
+        setShow(id, PREFIX, value, callback)
     }
 
-    public SetDisabledTabById(id: string, value: boolean,callback?:()=>void) {
-        setDisabled(id, PREFIX, value,callback)
+    public SetDisabledTabById(id: string, value: boolean, callback?: () => void) {
+        setDisabled(id, PREFIX, value, callback)
     }
 
     public SelectTabById(id: string, callback?: () => void) {
@@ -39,27 +39,27 @@ export class Tabs extends Component<TabProps, any> {
 
     innerRender() {
 
-        if(Children){
+        if (Children) {
             Children.map(this.props.children, (d) => {
 
                 let id = (d as any).props.id
                 if (!id) {
                     id = uuidv4()
                 }
-                if(this.list.filter(a=>a.id===id).length===0){
-                    this.list.push({
-                        width: (d as any).props.width,
-                        icon: (d as any).props.icon,
-                        title: (d as any).props.title,
-                        select: (d as any).props.select,
+
+                this.list.push({
+                    width: (d as any).props.width,
+                    icon: (d as any).props.icon,
+                    title: (d as any).props.title,
+                    select: (d as any).props.select,
+                    id: id,
+                    eventKey: (d as any).props.eventKey,
+                    children: React.cloneElement(d as React.ReactElement<any>, {
                         id: id,
-                        eventKey: (d as any).props.eventKey,
-                        children: React.cloneElement(d as React.ReactElement<any>, {
-                            id: id,
-                            _tabs: this
-                        })
+                        _tabs: this
                     })
-                }
+                })
+
 
             })
         }

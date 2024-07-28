@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { TabProps } from "./tabProps";
 export declare class Tabs extends Component<TabProps, any> {
     private list;
-    private listChildren;
     private readonly mRefDiv;
     constructor({ props }: {
         props: Readonly<TabProps>;
