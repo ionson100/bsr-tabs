@@ -45,7 +45,7 @@ export class Tabs extends Component<TabProps, any> {
             Children.map(this.props.children, (d) => {
 
                 const marker=(d as any).props._tabs
-                if(!marker){
+                if(marker&&marker._tabs._id!=this._id){
                     let id = (d as any).props.id
                     if (!id) {
                         id = uuidv4()

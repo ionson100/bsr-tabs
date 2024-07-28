@@ -3007,7 +3007,7 @@ var Tabs = /** @class */ (function (_super) {
         if (reactExports.Children) {
             reactExports.Children.map(this.props.children, function (d) {
                 var marker = d.props._tabs;
-                if (!marker) {
+                if (marker && marker._tabs._id != _this._id) {
                     var id = d.props.id;
                     if (!id) {
                         id = v4();
