@@ -45,19 +45,20 @@ export class Tabs extends Component<TabProps, any> {
             this.list=[];
             Children.map(this.props.children, (d) => {
 
+                const element=d as React.ReactElement<any>
 
-                let id = (d as any).props.id
+                let id = element.props.id
                 if (!id) {
                     id = uuidv4()
                 }
 
                 this.list!.push({
-                    width: (d as any).props.width,
-                    icon: (d as any).props.icon,
-                    title: (d as any).props.title,
-                    select: (d as any).props.select,
+                    width: element.props.width,
+                    icon: element.props.icon,
+                    title: element.props.title,
+                    select: element.props.select,
                     id: id,
-                    eventKey: (d as any).props.eventKey,
+                    eventKey: element.props.eventKey,
                     children: React.cloneElement(d as React.ReactElement<any>, {
                         id: id,
                         _tabs: this,
