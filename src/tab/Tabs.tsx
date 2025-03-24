@@ -11,7 +11,7 @@ export class Tabs extends Component<TabProps, any> {
     _id?:string;
 
 
-    private readonly mRefDiv: React.RefObject<HTMLDivElement | null>;
+    private readonly mRefDiv: React.RefObject<HTMLDivElement >;
 
     constructor({props}: { props: Readonly<TabProps> }) {
         super(props);
