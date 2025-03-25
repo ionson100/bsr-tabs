@@ -1,4 +1,4 @@
-import React, {Children, Component, RefObject} from "react";
+import React, {Children, Component} from "react";
 import {v4 as uuidv4} from 'uuid';
 import {ItemTabProps, TabProps} from "./tabProps";
 import {getButtonContent, openItem, PREFIX, setDisabled, setShow} from "./utils";
@@ -84,7 +84,7 @@ export class Tabs extends Component<TabProps, any> {
         this.innerRender()
         return (
 
-            <div ref={this.mRefDiv as RefObject<HTMLDivElement >} className={this.props.className} style={this.props.style} id={this.props.id}>
+            <div ref={this.mRefDiv} className={this.props.className} style={this.props.style} id={this.props.id}>
 
                 <div className="bsr-tab">
                     <div className={'bottom_band_left'}/>
