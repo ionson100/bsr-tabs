@@ -43,4 +43,5 @@ declare class Tab extends Component<ItemTabProps, any> {
     render(): React.JSX.Element[] | null | undefined;
 }
 
-export { type ItemTabProps, Tab, type TabProps, Tabs };
+export { Tab, Tabs };
+export type { ItemTabProps, TabProps };

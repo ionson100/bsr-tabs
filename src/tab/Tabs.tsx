@@ -11,11 +11,10 @@ export class Tabs extends Component<TabProps, any> {
     _id?:string;
 
 
-    private readonly mRefDiv: React.RefObject<HTMLDivElement|null >;
+    private readonly mRefDiv=React.createRef<HTMLDivElement>();// React.RefObject;
 
     constructor({props}: { props: Readonly<TabProps> }) {
         super(props);
-        this.mRefDiv = React.createRef()
         this.list = [];
         this._id=uuidv4()
     }

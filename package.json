@@ -1,6 +1,6 @@
 {
   "name": "bsr-tabs",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "ReactJS component tabs",
   "author": "ionson100",
   "license": "MIT",
@@ -18,8 +18,7 @@
     "README.md"
   ],
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "*"
   },
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs && @powershell copy  ./src/tab/index.css ./dist"
@@ -44,28 +43,31 @@
   },
   "devDependencies": {
 
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/jest": "^27.5.2",
-    "@types/node": "^22.13.13",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
-    "@types/uuid": "^9.0.8",
+    "@types/node": "^16.18.97",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "@types/uuid": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.26.1",
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",
+
     "react-scripts": "5.0.1",
-    "rollup": "^4.37.0",
+    "rollup": "^4.17.2",
     "rollup-plugin-css-only": "^4.5.2",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-import-css": "^3.5.0",
     "rollup-plugin-lib-style": "^1.2.6",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
-    "typescript": "^5.8.2",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.9.5"
   }
 }

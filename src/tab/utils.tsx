@@ -13,6 +13,7 @@ export function openItem(idParent:string,div: HTMLDivElement, id: string, prefix
     );
 
 
+
     for (i = 0; i < tabcontent.length; i++) {
 
         (tabcontent[i] as HTMLDivElement).style.display = "none";
