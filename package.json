@@ -1,6 +1,6 @@
 {
   "name": "bsr-tabs",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "ReactJS component tabs",
   "author": "ionson100",
   "license": "MIT",
@@ -43,10 +43,10 @@
   },
   "devDependencies": {
 
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
 
-    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -61,7 +61,7 @@
     "postcss-modules": "^6.0.0",
 
     "react-scripts": "5.0.1",
-    "rollup": "^4.17.2",
+    "rollup": "^4.38.0",
     "rollup-plugin-css-only": "^4.5.2",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-import-css": "^3.5.0",

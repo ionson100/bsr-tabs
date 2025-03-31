@@ -42,7 +42,8 @@ export class Tabs extends Component<TabProps, any> {
 
         if (Children) {
             this.list=[];
-            Children.map(this.props.children, (d) => {
+
+            React.Children.map(this.props.children, (d) => {
 
                 const element=d as React.ReactElement<any>
 
